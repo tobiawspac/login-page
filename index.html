@@ -26,10 +26,7 @@
             text-align: center;
         }
 
-        h2 {
-            margin-bottom: 1.5rem;
-            color: #333;
-        }
+        h2 { margin-bottom: 1.5rem; color: #333; }
 
         input[type="text"], input[type="password"] {
             width: 100%;
@@ -40,9 +37,7 @@
             font-size: 1rem;
         }
 
-        .password-container {
-            position: relative;
-        }
+        .password-container { position: relative; }
 
         .toggle-password {
             position: absolute;
@@ -66,9 +61,7 @@
             transition: background-color 0.3s;
         }
 
-        button:hover {
-            background-color: #1a5bd8;
-        }
+        button:hover { background-color: #1a5bd8; }
 
         .forgot {
             display: block;
@@ -87,9 +80,7 @@
             display: none;
         }
 
-        @media (max-width: 500px) {
-            .login-container { padding: 1.5rem; }
-        }
+        @media (max-width: 500px) { .login-container { padding: 1.5rem; } }
     </style>
 </head>
 <body>
@@ -105,10 +96,10 @@
             <button type="submit">Přihlásit se</button>
             <a href="#" class="forgot">Zapomněli jste heslo?</a>
         </form>
-        <h1>pro heslo hezky popros</h1>
     </div>
 
     <script>
+        // Zobrazit / skrýt heslo
         function togglePassword() {
             const passwordField = document.getElementById('password');
             const toggleText = document.querySelector('.toggle-password');
@@ -121,16 +112,23 @@
             }
         }
 
+        // Uživatelské údaje (více uživatelů)
+        const users = [
+            {username: "admin", password: "1234"},
+            {username: "tomas", password: "abcd"},
+            {username: "guest", password: "guest"}
+        ];
+
         document.getElementById('loginForm').addEventListener('submit', function(e) {
-            e.preventDefault(); // zabrání reloadu
+            e.preventDefault();
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
             const errorMsg = document.getElementById('errorMsg');
 
-            // jednoduchá kontrola loginu (můžeš nahradit backendem)
-            if(username === "admin" && password === "1234") {
-                alert("Přihlášení úspěšné!");
-                errorMsg.style.display = "none";
+            const validUser = users.find(user => user.username === username && user.password === password);
+
+            if(validUser) {
+                window.location.href = "welcome.html"; // Přesměrování
             } else {
                 errorMsg.style.display = "block";
             }
