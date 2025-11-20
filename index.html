@@ -5,18 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Přihlášení</title>
     <style>
-        * {
-            box-sizing: border-box;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
-            margin: 0;
-            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            min-height: 100vh;
             font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
         }
 
         .login-container {
@@ -34,8 +31,7 @@
             color: #333;
         }
 
-        input[type="text"],
-        input[type="password"] {
+        input[type="text"], input[type="password"] {
             width: 100%;
             padding: 12px 15px;
             margin-bottom: 1rem;
@@ -82,29 +78,30 @@
             text-decoration: none;
         }
 
-        .forgot:hover {
-            text-decoration: underline;
+        .forgot:hover { text-decoration: underline; }
+
+        .error {
+            color: red;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            display: none;
         }
 
-        /* Mobilní verze */
         @media (max-width: 500px) {
-            .login-container {
-                padding: 1.5rem;
-            }
+            .login-container { padding: 1.5rem; }
         }
     </style>
 </head>
 <body>
     <div class="login-container">
         <h2>Přihlášení</h2>
+        <div class="error" id="errorMsg">Neplatné údaje!</div>
         <form id="loginForm">
             <input type="text" id="username" name="username" placeholder="Uživatelské jméno" required>
-            
             <div class="password-container">
                 <input type="password" id="password" name="password" placeholder="Heslo" required>
                 <span class="toggle-password" onclick="togglePassword()">Ukázat</span>
             </div>
-            
             <button type="submit">Přihlásit se</button>
             <a href="#" class="forgot">Zapomněli jste heslo?</a>
         </form>
@@ -114,7 +111,7 @@
         function togglePassword() {
             const passwordField = document.getElementById('password');
             const toggleText = document.querySelector('.toggle-password');
-            if (passwordField.type === 'password') {
+            if(passwordField.type === 'password') {
                 passwordField.type = 'text';
                 toggleText.textContent = 'Skrýt';
             } else {
@@ -123,17 +120,18 @@
             }
         }
 
-        // Ukázkový funkční submit
         document.getElementById('loginForm').addEventListener('submit', function(e) {
-            e.preventDefault(); // zabrání reloadu stránky
+            e.preventDefault(); // zabrání reloadu
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
+            const errorMsg = document.getElementById('errorMsg');
 
-            // Zde můžeš přidat volání na backend
+            // jednoduchá kontrola loginu (můžeš nahradit backendem)
             if(username === "admin" && password === "1234") {
                 alert("Přihlášení úspěšné!");
+                errorMsg.style.display = "none";
             } else {
-                alert("Neplatné údaje!");
+                errorMsg.style.display = "block";
             }
         });
     </script>
